@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+john_from_uol:
+  name: John Doe
+  email: john@example.com
+  picture: picture_url
+  company: uol
+
+jane_from_google:
+  name: Jane Doe
+  email: jane@example.com
+  picture: picture_url
+  company: google
