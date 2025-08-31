@@ -1,11 +1,16 @@
 import React from "react"
 import { createRoot } from "react-dom/client"
 import App from "./components/App"
+import NewCompanyForm from './components/NewCompanyForm'
 
 document.addEventListener("DOMContentLoaded", () => {
   const rootElement = document.getElementById("root")
   if (rootElement) {
-    const root = createRoot(rootElement)
-    root.render(<App />)
+    createRoot(rootElement).render(<App />)
+  }
+
+  const newCompanyForm = document.getElementById("new-company-form")
+  if (newCompanyForm) {
+    createRoot(newCompanyForm).render(<NewCompanyForm />)
   }
 })
