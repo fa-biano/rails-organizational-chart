@@ -1,0 +1,63 @@
+import React, { useState } from 'react'
+
+const NewCompanyForm: React.FC = () => {
+  const [name, setName] = useState('')
+  const [errors, setErrors] = useState<string[]>([])
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+
+    try {
+      const response = await fetch('/companies', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+        },
+        body: JSON.stringify({ company: { name } })
+      })
+
+      if (response.ok) {
+        window.location.href = '/companies'
+      } else {
+        const errorData = await response.json()
+        setErrors(errorData.errors || ['Ocorreu um erro ao salvar.'])
+      }
+    } catch (error) {
+      console.error('Erro ao enviar o formulário:', error)
+      setErrors(['Ocorreu um erro inesperado.'])
+    }
+  }
+
+  return (
+    <div className="max-w-md mx-auto mt-8 p-6 bg-gray-50 border border-gray-200 rounded-lg shadow">
+      <h1 className="text-xl font-bold mb-4 text-center text-gray-800">Adicionar Nova Empresa</h1>
+      
+      {errors.length > 0 && (
+        <div className="mb-4 p-3 border border-red-400 bg-red-50 text-red-700 rounded">
+          <ul className="list-disc list-inside">
+            {errors.map((error, index) => (
+              <li key={index}>{error}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <div>
+          <label htmlFor="company-name" className="block font-medium text-gray-700">Nome da Empresa:</label>
+          <input
+            type="text"
+            id="company-name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:bg-white focus:border-blue-500 focus:ring focus:ring-blue-300"
+          />
+        </div>
+        <button type="submit" className="py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 cursor-pointer transition">Salvar Empresa</button>
+      </form>
+    </div>
+  )
+}
+
+export default NewCompanyForm
