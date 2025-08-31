@@ -10,7 +10,13 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "home#index"
+  root "companies#index"
 
-  resources :companies, only: [ :index, :create, :new, :show ]
+  scope :api do
+    resources :companies, only: [ :index, :create, :new, :show ]
+    resources :employees, only: [ :index, :show, :create, :update, :destroy ]
+  end
+
+  # fallback to SPA
+  get "*path", to: "companies#index", constraints: ->(req) { !req.path.start_with?("/api") }
 end
