@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
+import { useNavigate } from "react-router-dom"
 
 const NewCompanyForm: React.FC = () => {
   const [name, setName] = useState('')
   const [errors, setErrors] = useState<string[]>([])
+  const navigate = useNavigate()
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
 
     try {
-      const response = await fetch('/companies', {
+      const response = await fetch('/api/companies', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -18,7 +20,7 @@ const NewCompanyForm: React.FC = () => {
       })
 
       if (response.ok) {
-        window.location.href = '/companies'
+         navigate('/')
       } else {
         const errorData = await response.json()
         setErrors(errorData.errors || ['Ocorreu um erro ao salvar.'])

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 interface Company {
   id: string
@@ -7,11 +8,13 @@ interface Company {
   updated_at: string
 }
 
-interface CompanyShowProps {
-  companyId: string
-}
+// interface CompanyShowProps {
+//   companyId: string
+// }
 
-const CompanyShow: React.FC<CompanyShowProps> = ({ companyId }) => {
+// const CompanyShow: React.FC<CompanyShowProps> = ({ companyId }) => {
+const CompanyShow: React.FC = () => {
+  const { id } = useParams()
   const [company, setCompany] = useState<Company | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -19,14 +22,9 @@ const CompanyShow: React.FC<CompanyShowProps> = ({ companyId }) => {
   useEffect(() => {
     const fetchCompany = async () => {
       try {
-        const response = await fetch(`/companies/${companyId}.json`)
-        console.log('response', response);
-        
+        const response = await fetch(`/api/companies/${id}.json`)
         if (!response.ok) throw new Error('Erro ao carregar empresa')
-        console.log('passou do response ok');
-
         const data = await response.json()
-        console.log('data', data);
         setCompany(data)
       } catch (err: any) {
         setError(err.message)
@@ -36,7 +34,7 @@ const CompanyShow: React.FC<CompanyShowProps> = ({ companyId }) => {
     }
 
     fetchCompany()
-  }, [companyId])
+  }, [id])
 
   if (loading) return <p className="text-center mt-8">Carregando empresa...</p>
   if (error) return <p className="text-red-500 text-center mt-8">{error}</p>
