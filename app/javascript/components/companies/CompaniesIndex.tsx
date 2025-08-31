@@ -45,7 +45,6 @@ const CompaniesIndex: React.FC = () => {
       <h1 className="text-2xl font-bold mb-4">Lista de Empresas</h1>
       <button
           className="py-2 px-4 mb-3 bg-green-600 text-white rounded-md hover:bg-green-700 transition cursor-pointer"
-          // onClick={() => (window.location.href = "/companies/new")}
           onClick={() => navigate("/companies/new")}
         >
           Nova Empresa
@@ -60,7 +59,6 @@ const CompaniesIndex: React.FC = () => {
                 <li
                   key={company.id}
                   className="p-4 hover:bg-gray-50 cursor-pointer"
-                  // onClick={() => window.location.href = `/companies/${company.id}` }
                   onClick={() => navigate(`/companies/${company.id}`) }
                 >
                   {company.name}

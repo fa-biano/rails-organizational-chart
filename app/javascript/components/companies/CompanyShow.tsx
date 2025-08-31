@@ -8,11 +8,6 @@ interface Company {
   updated_at: string
 }
 
-// interface CompanyShowProps {
-//   companyId: string
-// }
-
-// const CompanyShow: React.FC<CompanyShowProps> = ({ companyId }) => {
 const CompanyShow: React.FC = () => {
   const { id } = useParams()
   const [company, setCompany] = useState<Company | null>(null)
