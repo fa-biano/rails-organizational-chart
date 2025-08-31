@@ -1,8 +1,13 @@
 class CompaniesController < ApplicationController
   # protect_from_forgery with: :null_session
+
   def index
     @companies = Company.all
-    render json: @companies
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @companies }
+    end
   end
 
   def new
