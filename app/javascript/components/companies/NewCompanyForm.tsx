@@ -51,6 +51,8 @@ const NewCompanyForm: React.FC = () => {
             id="company-name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            minLength={2}
+            required
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:bg-white focus:border-blue-500 focus:ring focus:ring-blue-300"
           />
         </div>
