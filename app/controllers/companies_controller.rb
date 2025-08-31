@@ -25,6 +25,8 @@ class CompaniesController < ApplicationController
     render json: company
   end
 
+  private
+
   def company_params
     params.require(:company).permit(:name)
   end
