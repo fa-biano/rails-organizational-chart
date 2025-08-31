@@ -22,9 +22,10 @@ test "should create company" do
 
   assert_response :created
 
-  json = JSON.parse(response.body)
-  assert_equal "New Company", json["name"]
+  json_response = JSON.parse(@response.body)
+  assert_equal "New Company", json_response["name"]
 end
+
 
   test "should show company" do
     get company_url(@company)
