@@ -1,5 +1,5 @@
 import React from "react"
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { IEmployee } from '../../types/employee.type'
 import { BsFillPersonFill } from 'react-icons/bs';
 
@@ -10,6 +10,7 @@ interface EmployeeShowProps {
 
 const EmployeeShow: React.FC<EmployeeShowProps> = ({ employee, onDelete }) => {
   const navigate = useNavigate()
+  const location = useLocation()
 
   const handleDelete = async () => {
     if (!window.confirm("Tem certeza que deseja excluir este employee?")) return
@@ -55,7 +56,7 @@ return (
       <div className="flex gap-2">
         <button
           className="py-1 px-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition cursor-pointer text-sm"
-          onClick={() => navigate(`/employees/${employee.id}/edit`)}
+          onClick={() => navigate(`${location.pathname}/employees/${employee.id}`)}
         >
           Editar
         </button>
