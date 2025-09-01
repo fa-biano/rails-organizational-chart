@@ -10,10 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_31_022821) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_01_022111) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
-  enable_extension "pgcrypto"
 
   create_table "companies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
@@ -28,8 +27,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_022821) do
     t.uuid "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "manager_id"
     t.index ["company_id"], name: "index_employees_on_company_id"
+    t.index ["manager_id"], name: "index_employees_on_manager_id"
   end
 
   add_foreign_key "employees", "companies"
+  add_foreign_key "employees", "employees", column: "manager_id", on_delete: :nullify
 end
