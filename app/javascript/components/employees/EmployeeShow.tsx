@@ -1,6 +1,6 @@
 import React from "react"
 import { useNavigate } from 'react-router-dom'
-import { IEmployee } from '../../types/employee.type.'
+import { IEmployee } from '../../types/employee.type'
 import { BsFillPersonFill } from 'react-icons/bs';
 
 interface EmployeeShowProps {

@@ -1,4 +1,4 @@
-import { IEmployee } from './employee.type.'
+import { IEmployee } from './employee.type'
 
 export interface ICompany {
   id: string

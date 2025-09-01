@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import EmployeeShow from '../employees/EmployeeShow'
 import { ICompany } from '../../types/company.type'
-import { IEmployee } from '../../types/employee.type.'
+import { IEmployee } from '../../types/employee.type'
 
 const CompanyShow: React.FC = () => {
   const { company_id } = useParams()
