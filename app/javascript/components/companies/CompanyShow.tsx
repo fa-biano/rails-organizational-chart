@@ -5,7 +5,7 @@ import { ICompany } from '../../types/company.type'
 import { IEmployee } from '../../types/employee.type.'
 
 const CompanyShow: React.FC = () => {
-  const { id } = useParams()
+  const { company_id } = useParams()
   const [company, setCompany] = useState<ICompany | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -14,7 +14,7 @@ const CompanyShow: React.FC = () => {
 
   const fetchCompany = async () => {
     try {
-      const response = await fetch(`/api/companies/${id}.json`)
+      const response = await fetch(`/api/companies/${company_id}.json`)
       if (!response.ok) throw new Error('Erro ao carregar empresa')
       const companyData: ICompany = await response.json()
       
@@ -37,7 +37,7 @@ const CompanyShow: React.FC = () => {
 
   useEffect(() => {
     fetchCompany()
-  }, [id])
+  }, [company_id])
 
   if (loading) return <p className="text-center mt-8">Carregando empresa...</p>
   if (error) return <p className="text-red-500 text-center mt-8">{error}</p>
