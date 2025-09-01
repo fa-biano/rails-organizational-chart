@@ -19,7 +19,10 @@ const EmployeeNew: React.FC = () => {
     try {
       const response = await fetch('/api/employees.json', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+        },
         body: JSON.stringify({
           employee: { name, email, picture, company_id: companyId }
         })
