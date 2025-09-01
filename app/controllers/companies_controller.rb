@@ -21,8 +21,8 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    company = Company.find(params[:id])
-    render json: company
+    company = Company.includes(:employees).find(params[:id])
+    render json: company.as_json(include: :employees)
   end
 
   private
