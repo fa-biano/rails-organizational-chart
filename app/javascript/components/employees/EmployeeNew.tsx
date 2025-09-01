@@ -1,31 +1,32 @@
 import React, { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { IEmployee } from '../../types/employee.type'
+import EmployeeForm from './EmployeeForm'
 
 const EmployeeNew: React.FC = () => {
-  const { id: companyId } = useParams<{ id: string }>()
+  const { company_id } = useParams()
   const navigate = useNavigate()
 
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [picture, setPicture] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
+  const handleSubmit = async (employeeData: Pick<IEmployee, 'name' | 'email' | 'picture'>) => {
     setLoading(true)
     setError(null)
+
+    const payload: Omit<IEmployee, 'id' | 'created_at' | 'updated_at'> = {
+      ...employeeData,
+      company_id: company_id || '',
+    }
 
     try {
       const response = await fetch('/api/employees.json', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
         },
-        body: JSON.stringify({
-          employee: { name, email, picture, company_id: companyId }
-        })
+        body: JSON.stringify({ employee: payload })
       })
 
       if (!response.ok) {
@@ -33,7 +34,7 @@ const EmployeeNew: React.FC = () => {
         throw new Error(errData.error || 'Erro ao criar funcionário')
       }
 
-      navigate(`/companies/${companyId}`)
+      navigate(`/companies/${company_id}`)
     } catch (err: any) {
       setError(err.message)
     } finally {
@@ -42,53 +43,12 @@ const EmployeeNew: React.FC = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white border border-gray-200 rounded-lg shadow">
-      <h1 className="text-2xl font-bold mb-4 text-center">Cadastrar Colaborador(a)</h1>
-
-      {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium">Nome</label>
-          <input
-            type="text"
-            className="w-full border rounded px-3 py-2"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium">E-mail</label>
-          <input
-            type="email"
-            className="w-full border rounded px-3 py-2"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium">URL Foto (opcional)</label>
-          <input
-            type="text"
-            className="w-full border rounded px-3 py-2"
-            value={picture}
-            onChange={(event) => setPicture(event.target.value)}
-          />
-        </div>
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50 cursor-pointer"
-        >
-          {loading ? 'Criando...' : 'Criar Colaborador(a)'}
-        </button>
-      </form>
-    </div>
+    <EmployeeForm
+      onSubmit={handleSubmit}
+      submitButtonText="Criar"
+      loading={loading}
+      error={error}
+    />
   )
 }
 
