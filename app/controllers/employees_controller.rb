@@ -14,7 +14,7 @@ class EmployeesController < ApplicationController
     if employee.save
       render json: employee, status: :created
     else
-      render json: employee.errors, status: :unprocessable_entity
+      render json: employee.errors, status: :unprocessable_content
     end
   end
 
@@ -23,7 +23,7 @@ class EmployeesController < ApplicationController
     if employee.update(employee_params)
       render json: employee, status: :ok
     else
-      render json: employee.errors, status: :unprocessable_entity
+      render json: employee.errors, status: :unprocessable_content
     end
   end
 
@@ -32,13 +32,13 @@ class EmployeesController < ApplicationController
     if employee.destroy
       head :no_content
     else
-      render json: employee.errors, status: :unprocessable_entity
+      render json: employee.errors, status: :unprocessable_content
     end
   end
 
   private
 
   def employee_params
-    params.require(:employee).permit(:name, :email, :picture, :company_id)
+    params.require(:employee).permit(:name, :email, :picture, :company_id, :manager_id)
   end
 end
