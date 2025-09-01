@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-
-interface Company {
-  id: number
-  name: string
-}
+import { ICompany } from '../../types/company.type'
 
 const CompaniesIndex: React.FC = () => {
-  const [companies, setCompanies] = useState<Company[]>([])
+  const [companies, setCompanies] = useState<ICompany[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -45,7 +41,7 @@ const CompaniesIndex: React.FC = () => {
       <h1 className="text-2xl font-bold mb-4">Lista de Empresas</h1>
       <button
           className="py-2 px-4 mb-3 bg-green-600 text-white rounded-md hover:bg-green-700 transition cursor-pointer"
-          onClick={() => navigate("/companies/new")}
+          onClick={() => navigate("/companies")}
         >
           Nova Empresa
       </button>
