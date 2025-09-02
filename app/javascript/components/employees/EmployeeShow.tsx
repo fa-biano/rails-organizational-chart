@@ -1,7 +1,8 @@
 import React from "react"
 import { useLocation, useNavigate } from 'react-router-dom'
 import { IEmployee } from '../../types/employee.type'
-import { BsFillPersonFill } from 'react-icons/bs';
+import { BsFillPersonFill } from 'react-icons/bs'
+import { TbHierarchy3 } from 'react-icons/tb'
 
 interface EmployeeShowProps {
   employee: IEmployee
@@ -55,17 +56,25 @@ return (
 
       <div className="flex gap-2">
         <button
+          onClick={() => navigate(`${location.pathname}/employees/${employee.id}/orgchart`)}
+          className="text-white bg-blue-500 hover:bg-blue-600 py-1 px-3 rounded-md transition-colors text-sm cursor-pointer"
+        >
+          <TbHierarchy3 size={20} />
+        </button>
+        <button
           className="py-1 px-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition cursor-pointer text-sm"
           onClick={() => navigate(`${location.pathname}/employees/${employee.id}`)}
         >
           Editar
         </button>
+        
         <button
           className="py-1 px-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition cursor-pointer text-sm"
           onClick={handleDelete}
         >
           Excluir
         </button>
+
       </div>
     </div>
   )
