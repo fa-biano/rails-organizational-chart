@@ -1,28 +1,29 @@
-import React from 'react'
-import { IEmployee } from '../../types/employee.type'
+import React, { useState } from 'react'
+import { IEmployee, IEmployeeFormData } from '../../types/employee.type'
 
 interface EmployeeFormProps {
-  initialData?: Pick<IEmployee, 'name' | 'email' | 'picture'>
-  onSubmit: (data: Pick<IEmployee, 'name' | 'email' | 'picture'>) => Promise<void>
+  initialData?: IEmployeeFormData
+  onSubmit: (data: IEmployeeFormData) => Promise<void>
   submitButtonText: string
   loading: boolean
   error: string | null
 }
 
 const EmployeeForm: React.FC<EmployeeFormProps> = ({
-  initialData = { name: '', email: '', picture: '' },
+  initialData = { name: '', email: '', picture: '', manager_email: '' },
   onSubmit,
   submitButtonText,
   loading,
   error,
 }) => {
-  const [name, setName] = React.useState(initialData.name)
-  const [email, setEmail] = React.useState(initialData.email)
-  const [picture, setPicture] = React.useState(initialData.picture)
+  const [name, setName] = useState(initialData.name)
+  const [email, setEmail] = useState(initialData.email)
+  const [picture, setPicture] = useState(initialData.picture || '')
+  const [managerEmail, setManagerEmail] = useState(initialData.manager_email || '')
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-    await onSubmit({ name, email, picture: picture || '' })
+    await onSubmit({ name, email, picture, manager_email: managerEmail })
   }
 
   return (
@@ -61,6 +62,16 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({
             className="w-full border rounded px-3 py-2"
             value={picture}
             onChange={(event) => setPicture(event.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium">E-mail do Gestor (opcional)</label>
+          <input
+            type="email"
+            className="w-full border rounded px-3 py-2"
+            value={managerEmail}
+            onChange={(event) => setManagerEmail(event.target.value)}
           />
         </div>
 
