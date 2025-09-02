@@ -27,7 +27,7 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({
   }
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white border border-gray-200 rounded-lg shadow">
+    <main className="w-full max-w-3xl mx-auto mt-8 px-4 sm:px-6 lg:px-8 p-6 bg-gray-50 border border-gray-200 rounded-lg shadow">
       <h1 className="text-2xl font-bold mb-4 text-center">{submitButtonText} Colaborador(a)</h1>
 
       {error && <p className="text-red-500 text-center mb-4">{error}</p>}
@@ -83,7 +83,7 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({
           {loading ? 'Processando...' : submitButtonText}
         </button>
       </form>
-    </div>
+    </main>
   )
 }
 

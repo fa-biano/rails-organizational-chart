@@ -20,7 +20,7 @@ const NewCompanyForm: React.FC = () => {
       })
 
       if (response.ok) {
-         navigate('/')
+          navigate('/')
       } else {
         const errorData = await response.json()
         setErrors(errorData.errors || ['Ocorreu um erro ao salvar.'])
@@ -32,7 +32,7 @@ const NewCompanyForm: React.FC = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-gray-50 border border-gray-200 rounded-lg shadow">
+    <main className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 p-6 bg-gray-50 border border-gray-200 rounded-lg shadow">
       <h1 className="text-xl font-bold mb-4 text-center text-gray-800">Adicionar Nova Empresa</h1>
       
       {errors.length > 0 && (
@@ -55,12 +55,12 @@ const NewCompanyForm: React.FC = () => {
             onChange={(e) => setName(e.target.value)}
             minLength={2}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:bg-white focus:border-blue-500 focus:ring focus:ring-blue-300"
+            className="w-full border rounded px-3 py-2 focus:border-blue-500 focus:ring focus:ring-blue-500/50"
           />
         </div>
         <button type="submit" className="py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 cursor-pointer transition">Salvar Empresa</button>
       </form>
-    </div>
+    </main>
   )
 }
 
