@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import EmployeeForm from './EmployeeForm'
-import { IEmployee } from '../../types/employee.type'
+import { IEmployee, IEmployeeFormData, IEmployeeHierarchy } from '../../types/employee.type'
+import { fetchManagerId } from '../../utils/fetchManagerId'
 
 const EmployeeEdit: React.FC = () => {
   const { company_id, employee_id } = useParams()
@@ -9,7 +10,7 @@ const EmployeeEdit: React.FC = () => {
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [employee, setEmployee] = useState<IEmployee | null>(null)
+  const [employee, setEmployee] = useState<IEmployeeHierarchy | null>(null)
 
   useEffect(() => {
     const fetchEmployee = async () => {
@@ -30,16 +31,25 @@ const EmployeeEdit: React.FC = () => {
     fetchEmployee()
   }, [employee_id])
 
-  const handleSubmit = async (employeeData: Pick<IEmployee, 'name' | 'email' | 'picture'>) => {
+  const handleSubmit = async (employeeData: IEmployeeFormData) => {
     setLoading(true)
     setError(null)
 
-    const payload: Omit<IEmployee, 'id' | 'created_at' | 'updated_at'> = {
-      ...employeeData,
-      company_id: company_id || '',
-    }
+    const { manager_email, ...rest } = employeeData
 
     try {
+      let managerId = employee?.manager?.id || ''
+      
+      if (manager_email !== employee?.manager?.email) {
+        managerId = await fetchManagerId(manager_email, company_id)
+      }
+      
+      const payload: Omit<IEmployee, 'id' | 'created_at' | 'updated_at'> = {
+        ...rest,
+        company_id: company_id || '',
+        manager_id: managerId
+      }
+
       const response = await fetch(`/api/employees/${employee_id}.json`, {
         method: 'PUT',
         headers: {
@@ -74,9 +84,16 @@ const EmployeeEdit: React.FC = () => {
     return null
   }
 
+  const initialFormData: IEmployeeFormData = {
+    name: employee.name,
+    email: employee.email,
+    picture: employee.picture || '',
+    manager_email: employee.manager?.email || '',
+  }
+
   return (
     <EmployeeForm
-      initialData={employee}
+      initialData={initialFormData}
       onSubmit={handleSubmit}
       submitButtonText="Atualizar"
       loading={loading}
