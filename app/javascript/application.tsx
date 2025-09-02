@@ -7,6 +7,7 @@ import CompanyShow from './components/companies/CompanyShow'
 import EmployeeNew from './components/employees/EmployeeNew'
 import EmployeeEdit from './components/employees/EmployeeEdit'
 import Header from './components/header'
+import EmployeeOrgChart from './components/employees/EmployeeOrgChart'
 
 const root = createRoot(document.getElementById("root")!)
 
@@ -19,6 +20,7 @@ root.render(
       <Route path="/companies/:company_id" element={<CompanyShow />} />
       <Route path="/companies/:company_id/employees" element={<EmployeeNew />} />
       <Route path="/companies/:company_id/employees/:employee_id" element={<EmployeeEdit />} />
+      <Route path="/companies/:company_id/employees/:employee_id/orgchart" element={<EmployeeOrgChart />} />
     </Routes>
   </BrowserRouter>
 )
