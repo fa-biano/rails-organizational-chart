@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import EmployeeShow from '../employees/EmployeeShow'
 import { ICompany } from '../../types/company.type'
-import { IEmployee } from '../../types/employee.type'
+import { IEmployeeFromDB } from '../../types/employee.type'
 
 const CompanyShow: React.FC = () => {
   const { company_id } = useParams()
   const [company, setCompany] = useState<ICompany | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [employees, setEmployees] = useState<IEmployee[]>([])
+  const [employees, setEmployees] = useState<IEmployeeFromDB[]>([])
   const navigate = useNavigate()
 
   const fetchCompany = async () => {
