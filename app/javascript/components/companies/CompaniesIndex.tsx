@@ -36,8 +36,8 @@ const CompaniesIndex: React.FC = () => {
   
   if (error) return <p className="text-red-600">{error}</p>
 
-  return (
-    <div className="max-w-3xl mx-auto mt-8">
+return (
+    <main className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 p-6 bg-gray-50 border border-gray-200 rounded-lg shadow">
       <h1 className="text-2xl font-bold mb-4">Lista de Empresas</h1>
       <button
           className="py-2 px-4 mb-3 bg-green-600 text-white rounded-md hover:bg-green-700 transition cursor-pointer"
@@ -64,7 +64,7 @@ const CompaniesIndex: React.FC = () => {
           </ul>
 
       )}
-    </div>
+    </main>
   )
 }
 
