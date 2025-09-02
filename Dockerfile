@@ -53,6 +53,14 @@ RUN npm install
 # Copy application code
 COPY . .
 
+# Precompile Tailwind e React bundles
+RUN npm run build:css && npm run build
+
+# Precompile Rails assets em um ambiente temporário "assets"
+ENV RAILS_ENV=assets
+RUN bundle exec rails assets:precompile
+ENV RAILS_ENV=production
+
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
