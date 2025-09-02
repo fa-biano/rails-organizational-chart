@@ -1,9 +1,9 @@
-import { IEmployee } from './employee.type'
+import { IEmployeeFromDB } from './employee.type'
 
 export interface ICompany {
   id: string
   name: string
   created_at: string
   updated_at: string
-  employees?: IEmployee[]
+  employees?: IEmployeeFromDB[]
 }
