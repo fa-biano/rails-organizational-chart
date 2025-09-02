@@ -16,3 +16,7 @@ export interface IEmployeeHierarchy extends IEmployeeFromDB {
   manager?: IEmployeeFromDB
   subordinates: IEmployeeFromDB[]
 }
+
+export type IEmployeeFormData = Pick<IEmployee, 'name' | 'email' | 'picture'> & {
+  manager_email?: string
+}
