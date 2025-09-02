@@ -6,11 +6,13 @@ import NewCompanyForm from './components/companies/NewCompanyForm'
 import CompanyShow from './components/companies/CompanyShow'
 import EmployeeNew from './components/employees/EmployeeNew'
 import EmployeeEdit from './components/employees/EmployeeEdit'
+import Header from './components/header'
 
 const root = createRoot(document.getElementById("root")!)
 
 root.render(
   <BrowserRouter>
+    <Header />
     <Routes>
       <Route path='/' element={<CompaniesIndex />} />
       <Route path="/companies" element={<NewCompanyForm />} />
