@@ -14,7 +14,11 @@ Rails.application.routes.draw do
 
   scope :api do
     resources :companies, only: [ :index, :create, :new, :show ]
-    resources :employees, only: [ :index, :show, :create, :update, :destroy ]
+    resources :employees, only: [ :index, :show, :create, :update, :destroy ] do
+      collection do
+        get "find_by_email"
+      end
+    end
   end
 
   # fallback to SPA
