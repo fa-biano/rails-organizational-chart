@@ -72,4 +72,12 @@ The application uses React Router for frontend navigation. Below are the main ro
 | `/companies/:company_id/employees/:employee_id` | `EmployeeEdit`     | Edit an existing employee                             |
 | `/companies/:company_id/employees/:employee_id/orgchart` | `EmployeeOrgChart` | View the organizational chart for a specific employee |
 
+## Local developement and test
+
+- raise docker db service: `docker compose up -d db`
+- start app in development: `bin/dev`
+- run test: `npm run test`
+- teste coverage: view file in `coverage/index.html`
+- to access rails console: `bin/rails c`
+
 
