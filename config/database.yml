@@ -1,34 +1,36 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("DB_USER") %>
-  password: <%= ENV.fetch("DB_PASSWORD") %>
-  host: <%= ENV.fetch("DB_HOST") %>
-
+  username: <%= ENV["DB_USER"] || "postgres" %>
+  password: <%= ENV["DB_PASSWORD"] || "" %>
+  host: <%= ENV["DB_HOST"] || "localhost" %>
 
 development:
   <<: *default
-  database: <%= ENV.fetch("DB_NAME") %>_development
+  database: <%= ENV["DB_NAME"] || "mydatabase" %>_development
 
 test:
   <<: *default
-  database: <%= ENV.fetch("DB_NAME") %>_test
+  database: <%= ENV["DB_NAME"] || "mydatabase" %>_test
 
 production:
   primary: &primary_production
     <<: *default
-    database: <%= ENV.fetch("DB_NAME") %>_production
+    database: <%= ENV["DB_NAME"] || "mydatabase" %>_production
   cache:
     <<: *primary_production
-    database: <%= ENV.fetch("DB_NAME") %>_production_cache
+    database: <%= ENV["DB_NAME"] || "mydatabase" %>_production_cache
     migrations_paths: db/cache_migrate
   queue:
     <<: *primary_production
-    database: <%= ENV.fetch("DB_NAME") %>_production_queue
+    database: <%= ENV["DB_NAME"] || "mydatabase" %>_production_queue
     migrations_paths: db/queue_migrate
   cable:
     <<: *primary_production
-    database: <%= ENV.fetch("DB_NAME") %>_production_cable
+    database: <%= ENV["DB_NAME"] || "mydatabase" %>_production_cable
     migrations_paths: db/cable_migrate
+
+assets:
+  <<: *default
+  database: assets
