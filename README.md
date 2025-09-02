@@ -44,7 +44,7 @@ RAILS_SECRET_KEY_BASE=rails_secret_hash
 1. **Clone the repository:**
    ```bash
    git clone git@github.com:fa-biano/rails-organizational-chart.git
-   cd organizational-chart
+   cd rails-organizational-chart
 
 2. **Execute the local setup script:**
     ```bash
