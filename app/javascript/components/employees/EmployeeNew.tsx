@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { IEmployee } from '../../types/employee.type'
+import { IEmployee, IEmployeeFormData } from '../../types/employee.type'
 import EmployeeForm from './EmployeeForm'
+import { fetchManagerId } from '../../utils/fetchManagerId'
 
 const EmployeeNew: React.FC = () => {
   const { company_id } = useParams()
@@ -10,16 +11,21 @@ const EmployeeNew: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = async (employeeData: Pick<IEmployee, 'name' | 'email' | 'picture'>) => {
+  const handleSubmit = async (employeeData: IEmployeeFormData) => {
     setLoading(true)
     setError(null)
 
-    const payload: Omit<IEmployee, 'id' | 'created_at' | 'updated_at'> = {
-      ...employeeData,
-      company_id: company_id || '',
-    }
+    const { manager_email, ...rest  } = employeeData
 
     try {
+      const managerId = await fetchManagerId(manager_email, company_id)
+      
+      const payload: Omit<IEmployee, 'id' | 'created_at' | 'updated_at'> = {
+        ...rest,
+        company_id: company_id || '',
+        manager_id: managerId,
+      }
+
       const response = await fetch('/api/employees.json', {
         method: 'POST',
         headers: {
