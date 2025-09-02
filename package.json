@@ -2,8 +2,8 @@
   "name": "app",
   "private": true,
   "scripts": {
-    "build": "npx esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets --loader:.js=jsx --loader:.ts=ts --loader:.tsx=tsx",
-    "build:css": "npx @tailwindcss/cli -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify",
+    "build": "npx esbuild app/javascript/application.tsx --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets --loader:.js=jsx --loader:.ts=ts --loader:.tsx=tsx",
+    "build:css": "npx @tailwindcss/cli -i ./app/assets/stylesheets/application.css -o ./app/assets/builds/application.css --minify",
     "test": "npm run build && RAILS_ENV=test bundle exec rails test"
   },
   "dependencies": {
