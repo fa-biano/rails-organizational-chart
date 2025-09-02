@@ -1,14 +1,4 @@
-include .env
 .PHONY: setup-env install-deps start-db start-rails-app local-setup
-
-db_create:
-	RAILS_ENV=development bundle exec rails db:create
-
-db_migrate:
-	RAILS_ENV=development bundle exec rails db:migrate
-
-db_drop:
-	docker exec -it rails_postgres psql -U $(DB_USER) -d postgres -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname!='postgres';"
 
 setup-env:
 	@echo "Checking if .env file exists..."
@@ -52,3 +42,13 @@ start-rails-app:
 
 local-setup: setup-env install-deps start-db start-rails-app
 	@echo "All setup is complete. Access 'http://localhost:3000'."
+
+db_create:
+	RAILS_ENV=development bundle exec rails db:create
+
+db_migrate:
+	RAILS_ENV=development bundle exec rails db:migrate
+
+# include .env
+# db_drop:
+# 	docker exec -it rails_postgres psql -U $(DB_USER) -d postgres -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname!='postgres';"
