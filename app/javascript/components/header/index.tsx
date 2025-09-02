@@ -15,7 +15,7 @@ const Header: React.FC = () => {
           {showBackButton && (
             <button
               onClick={() => navigate(-1)}
-              className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors duration-200"
+              className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
             >
               <FaArrowLeft className="text-xl" />
               <span className="hidden md:inline">Voltar</span>
