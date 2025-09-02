@@ -36,6 +36,16 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def find_by_email
+    employee = Employee.find_by(email: params[:email], company_id: params[:company_id])
+
+    if employee.nil?
+      render json: { error: "Email not found." }, status: :not_found
+      return
+    end
+    render json: employee, status: :ok
+  end
+
   private
 
   def employee_params
