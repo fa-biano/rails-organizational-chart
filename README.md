@@ -80,4 +80,7 @@ The application uses React Router for frontend navigation. Below are the main ro
 - teste coverage: view file in `coverage/index.html`
 - to access rails console: `bin/rails c`
 
+## Organizational Chart Example
+![Org_Chart_Example](app/assets/images/org_chart_example.png)
+
 
